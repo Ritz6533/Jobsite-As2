@@ -1,4 +1,4 @@
 <main class="home">
-	<h1>a03 Restricted Page</h1>
+	<h1>403 Restricted Page</h1>
 	
 	</main>

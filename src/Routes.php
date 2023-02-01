@@ -58,6 +58,10 @@ class Routes implements \CSY2028\Routes{
             
             $page = $controllers['job']->deletejob();
         }
+        elseif($route == 'apply'){
+            
+            $page = $controllers['job']->apply();
+        }
         elseif($route == 'editcategory'){
             
             $page = $controllers['category']->edit();
@@ -73,6 +77,10 @@ class Routes implements \CSY2028\Routes{
         elseif($route == 'register'){
             
             $page = $controllers['usercontroller']->register();
+        }
+        elseif($route == 'employeeRegister'){
+            
+            $page = $controllers['usercontroller']->employeeRegister();
         }
         else {
             list($controllerName, $functionName) = explode('/', $route);

@@ -153,5 +153,15 @@ class job {
             'title' => 'Sales'
         ];
     }
+    public function apply() {
+        return [
+           
+            'template' => 'apply.php',
+            'variables' => [
+                
+            ],
+            'title' => 'Apply Jobs'
+        ];
+    }
 
 }

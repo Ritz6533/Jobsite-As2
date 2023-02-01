@@ -3,8 +3,8 @@
 
 	<section class="left">
 		<ul>
-			<li><a href="jobs.php">Jobs</a></li>
-			<li><a href="categories.php">Categories</a></li>
+			<li><a href="/jobs">Jobs</a></li>
+			<li><a href="/category">Categories</a></li>
 
 		</ul>
 	</section>
@@ -54,6 +54,7 @@
 
 	}
 	else {
+		$pdo = new PDO('mysql:dbname=job;host=mysql', 'student', 'student');
 
 			$stmt = $pdo->prepare('SELECT * FROM job WHERE id = :id');
 
@@ -83,7 +84,8 @@
 
 			</form>
 
-
+			</section>
+	</main>
 
 		<?php
 

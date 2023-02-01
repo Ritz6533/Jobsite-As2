@@ -120,5 +120,14 @@ class UserController {
             ]
         ];
     }
+    public function employeeRegister(){
+
+        return [
+            'template' => 'employeeRegister.php',
+            'title' => 'Register Employees',
+            'variables' => [
+            ]
+        ];
+    }
 }
 ?>
