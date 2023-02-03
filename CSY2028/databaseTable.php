@@ -77,4 +77,5 @@ class DatabaseTable {
         $stmt->execute($values);
     }
 
+
 }

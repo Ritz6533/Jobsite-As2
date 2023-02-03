@@ -1,11 +1,11 @@
 
 <main class="sidebar">
 <h1>USER LOGIN</h1>
-<p style="float:right;"><a href="/register"> Register New User</p>
 
-<form action="" method="post">
-    <label for="username">Username:</label> <input type="text" name="person[username]" id="username">
-    <label for="password">Password:</label> <input type="password" name="person[password]" id="passsword">
-    <input type="submit" name="submit" value="Submit">
+<form action="/login" method="POST">
+    <label>email</label> <input type="email" name="email"/>
+    <label>password</label> <input type="password" name="password"/>
+    <input type="submit" value="Login" name="users" />
+
 </form>
 </main>

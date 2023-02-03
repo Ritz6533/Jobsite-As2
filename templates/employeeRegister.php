@@ -1,20 +1,21 @@
 <main class="sidebar">
-<h1>REGISTER NEW USER</h1>
+<h1>REGISTER EMPLOYEE</h1>
 
-<form action="" method="POST">
-<input type="hidden" name="person[id]" value="<?=$record['id'] ?? ''?>" />
-<input type="hidden" name="person[role]" value='2' />
+<form action="/employeeRegister" method="POST">
+<input type="hidden" name="id"/>
+<input type="hidden" name="role" value='employee' />
  <label>First Name</label>
- <input type="text" name="person[firstname]" />
+ <input type="text" name="firstname" />
  <label>Surname</label>
- <input type="text" name="person[surname]" />
+ <input type="text" name="surname" />
  <label>Email</label>
- <input type="text" name="person[email]" />
+ <input type="text" name="email" />
  <label>password</label> 
-<input type="password" name="person[password]"/>
+<input type="password" name="password"/>
  <label>Employee Code</label>
- <input type="text" name="person[email] " />
- <input type="submit" name="submit" value="submit" /><br>
-</form>
+ <input type="text" name="employee_code" />
+ <input type="submit" name="users" value="submit" /><br>
+
+    </form>
 <br>
-</main>
+    </main>

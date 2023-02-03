@@ -9,69 +9,49 @@ class UserController {
 
     }
 
-   
-
     // Function for submitting the login form.
-    public function loginSubmit() {
-        if (isset($this->post['submit'])) {
-            $user = $this->usersTable->retrieveRecord('username', $this->post['login']['username']);
-
-            $username = strtolower($this->post['login']['username']);
-            $password = $this->post['login']['password'];
-            $passwordWithUsername = $username . $password;
-
-            $error = '';
-
-            if ($username != '' && $password != '')
-                if (!empty($user)) {
-                    if (password_verify($passwordWithUsername, $user[0]->password) == true) {
-                        if ($user[0]->active == 0)
-                            $error = 'Your account has not been activated. Please contact an administrator.';
-                    }
-                    else
-                        $error = 'The password provided is incorrect.';
+    public function loginSubmit(){
+        if (array_key_exists('users', $_POST)) {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+    
+            $user = $this->usersTable->find('email', $email);
+            if (!empty($user) && password_verify($password, $user[0]['password'])) {
+              
+                $_SESSION['loggedin'] = true;
+                $_SESSION['id'] = $user[0]['id'];
+                if ($user[0]['role']=='employee') {
+                    $_SESSION['employee'] = true;
                 }
-                else
-                    $error = 'A user with the username provided does not exist.';
-            else
-                $error = 'You have not provided a username and/or password.';
-
-            // Check if the $error variable has no value. If so,
-            // log the user into the system and set roles accordingly.
-            if ($error == '') {
-                session_start();
-
-                if ($user[0]->role == 3)
-                    $_SESSION['isOwner'] = true;
-                elseif ($user[0]->role == 2)
-                    $_SESSION['isAdmin'] = true;
-                elseif ($user[0]->role == 1)
-                    $_SESSION['isEmployee'] = true;
-                else
-                    $_SESSION['isClient'] = true;
-
-                $_SESSION['username'] = $user[0]->username;
-                $_SESSION['id'] = $user[0]->id;
-
-                $_SESSION['loggedIn'] = true;
-                header('Location: /admin');
-            }
-            else {
+                if ($user[0]['role']=='client') {
+                    $_SESSION['client'] = true;
+                }
+    
                 return [
-                    'template' => 'adminindex.php',
+                    'template' => 'dashboard.php',
+                    'title' => 'Dashboard',
                     'variables' => [
-                        'error' => $error
-                    ],
-                    'title' => 'Log in'
+                        'users' => $user[0]
+                    ]
+                ];
+            } else {
+                return [
+                    'template' => 'wrongcode.php',
+                    'title' => 'Error',
+                    'variables' => [
+                    ]
                 ];
             }
         }
     }
 
+    
+       
+
     // Function for displaying the login form.
     public function login() {
         // display the form.
-        if (!isset($_SESSION['loggedIn'])) {
+        if (!isset($_SESSION['loggedout'])) {
     
  
 
@@ -91,12 +71,13 @@ class UserController {
     // Function for logging the user out from the system.
     public function logout() {   
         // Unset all $_SESSION variables.
-        unset($_SESSION['loggedIn']);
-        unset($_SESSION['username']);
+        unset($_SESSION['loggedin']);
+        unset($_SESSION['employee']);
+        unset($_SESSION['client']);
         unset($_SESSION['id']);
 
         return [
-            'template' => 'logout.html.php',
+            'template' => 'logout.php',
             'variables' => [],
             'title' => 'Log out'
         ];
@@ -120,7 +101,26 @@ class UserController {
             ]
         ];
     }
-    public function employeeRegister(){
+    public function registerSubmit(){
+
+        if (array_key_exists('users', $_POST)) {
+            $users = [
+                'role' => 'client',
+                'firstname' => $_POST['firstname'],
+                'surname' => $_POST['surname'],
+                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT), // use password_hash() function to hash the password
+                'email' => $_POST['email']
+            ];
+            $this->usersTable->insert($users);
+        }
+        return [
+            'template' => 'usersuccess.php',
+            'title' => 'User Added',
+            'variables' => ['users' => $users ?? []]
+        ];
+    }
+    public function employeeRegister() {
+        
 
         return [
             'template' => 'employeeRegister.php',
@@ -129,5 +129,44 @@ class UserController {
             ]
         ];
     }
+
+    public function employeeRegisterSubmit(){
+
+        if (array_key_exists('users', $_POST)) {
+
+            $employeeCode = $_POST['employee_code'];
+            if ($employeeCode !== "45645") {
+                return [
+                    'template' => 'wrongcode.php',
+                    'title' => 'User Added',
+                    'variables' => []
+                ];
+            }
+
+            $users = [
+                'role' => 'employee',
+                'firstname' => $_POST['firstname'],
+                'surname' => $_POST['surname'],
+                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT), // use password_hash() function to hash the password
+                'email' => $_POST['email']
+            ];
+            $this->usersTable->insert($users);
+        }
+        return [
+            'template' => 'usersuccess.php',
+            'title' => 'User Added',
+            'variables' => ['users' => $users ?? []]
+        ];
+    }
+
+    public function dashboard(){
+
+        return [
+            'template' => 'dashboard.php',
+            'title' => 'Dashboard',
+            'variables' => [
+            ]
+        ];
+    }
+
 }
-?>

@@ -3,17 +3,30 @@
 
 	<section class="left">
 		<ul>
-			<li><a href="jobs.php">Jobs</a></li>
-			<li><a href="categories.php">Categories</a></li>
+			<li><a href="/jobs">Jobs</a></li>
+			<li><a href="/category">Category</a></li>
 
 		</ul>
 	</section>
 
-	<section class="right">
+	
+<section class="right">
 
 
-			<h2>Categories</h2>
+<ul class="listing">
+<?php foreach($categories as $category) { ?>
 
-			<a class="new" href="addcategory.php">Add new category</a>
 
+<div class="details">
+<p><a href="/<?=$category['name']?>"><?=$category['name']?></a></p>
+
+</div>
+<br>
+
+<?php }
+?>
+
+</ul>
+
+</section>
 </main>

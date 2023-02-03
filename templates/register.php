@@ -1,20 +1,20 @@
 <main class="sidebar">
 <h1>REGISTER NEW USER</h1>
-<p style="float:right;"><a href="/employeeRegister"> Register Employee</p>
+<p style="float:right;"><a href="/employeeRegister">Employee Register Here!!!</a></p>
 
-<form action="" method="POST">
-<input type="hidden" name="person[id]" value="<?=$record['id'] ?? ''?>" />
-<input type="hidden" name="person[role]" value='1' />
+
+<form action="/register" method="POST">
+<input type="hidden" name="id"/>
+<input type="hidden" name="role" value='client' />
  <label>First Name</label>
- <input type="text" name="person[firstname]" />
+ <input type="text" name="firstname" />
  <label>Surname</label>
- <input type="text" name="person[surname]" />
+ <input type="text" name="surname" />
  <label>Email</label>
- <input type="text" name="person[email]" />
-<label>password</label> 
-<input type="password" name="person[password]"/>
-
- <input type="submit" name="submit" value="submit" /><br>
-</form>
-
-</main>
+ <input type="text" name="email" />
+ <label>password</label> 
+<input type="password" name="password"/>
+ <input type="submit" name="users" value="submit" />
+    </form>
+<br>
+    </main>

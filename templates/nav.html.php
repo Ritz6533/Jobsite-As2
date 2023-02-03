@@ -13,6 +13,8 @@ if (isset($_SESSION['loggedin'])) {
 					<li><a href="/sales">Sales</a></li>
 
 				</ul></li>
+				<li><a href="category">Category</a></li>
+
 				<li><a href="/about">About Us</a></li>
 	        <li><a href="logout">logout</a></li>
 		</ul>
@@ -32,8 +34,10 @@ else {?>
 					<li><a href="/sales">Sales</a></li>
 
 				</ul></li>
+				<li><a href="category">Category</a></li>
 				<li><a href="/about">About Us</a></li>
-	        <li><a href="login">Login</a></li>
+	        <li><a href="/login">Login</a></li>
+			<li><a href="/register">Register</a></li>
 		</ul>
 	</nav>
     <?php

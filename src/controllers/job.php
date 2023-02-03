@@ -111,6 +111,29 @@ class job {
             'title' => 'About Us'
         ];
     }
+    public function aboutsubmit() {
+        if (isset($_POST['enquiry'])) {
+
+	
+            $this->enquiryTable->save($_POST['enquiry']);
+        
+            header('location: /category/list');
+       
+            return [
+                'template' => 'about.php',
+                'title' => 'about',
+                'variables' => ['enquiry' => $enquiry]
+            ];
+        }
+        return [
+           
+            'template' => 'about.php',
+            'variables' => [
+                
+            ],
+            'title' => 'About Us'
+        ];
+    }
 
     // Function to display the FAQs page.
     public function faq() {
