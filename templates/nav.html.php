@@ -1,3 +1,4 @@
+
 <?php
 
 if (isset($_SESSION['loggedin'])) {
@@ -8,9 +9,13 @@ if (isset($_SESSION['loggedin'])) {
 			<li><a href="/faqs">FAQs</a></li>
 			<li>Jobs
 				<ul>
-					<li><a href="/it">IT</a></li>
-					<li><a href="/hr">Human Resources</a></li>
-					<li><a href="/sales">Sales</a></li>
+				<?php foreach($categories as $category) { ?>
+
+
+			<li><a href="/viewjob?categoryId=<?=$category['id']?>"><?=$category['name']?></a></li>
+
+<?php }
+?>
 
 				</ul></li>
 				<li><a href="category">Category</a></li>
@@ -29,9 +34,13 @@ else {?>
 			<li><a href="/faqs">FAQs</a></li>
 			<li>Jobs
 				<ul>
-					<li><a href="/it">IT</a></li>
-					<li><a href="/hr">Human Resources</a></li>
-					<li><a href="/sales">Sales</a></li>
+				<?php foreach($categories as $category) { ?>
+
+
+			<li><a href="/viewjob?categoryId=<?=$category['id']?>"><?=$category['name']?></a></li>
+
+<?php }
+?>
 
 				</ul></li>
 				<li><a href="category">Category</a></li>

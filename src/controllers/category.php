@@ -14,52 +14,93 @@ class Category {
                 'title' => 'Category List',
                 'variables' => ['categories' => $categories]
                 ];
+                
     }
 
-    public function delete(){
-        $this->categoriesTable->delete($_POST['id']);
-
-        header('location: /category/list');
-    }
-
-    public function edit(){
-        if (isset($_POST['category'])) {
-
-	
-            $this->categoriesTable->save($_POST['category']);
+    public function deletecategory() {
+                        
+        if (array_key_exists('delete', $_POST)) {
+                $this->categoriesTable->delete($_POST['id']);
         
-            header('location: /category/list');
+                header('location: /category');
+            }
         }
-        else {
+        public function editCategory() {
+            $Id = $_GET['id'] ?? null;
+            $categories = $this->categoriesTable->find('id',$Id);
         
-            if (isset($_GET['id'])){
-                $result = $this->categoriesTable->find('id', $_GET['id']);
-                $category = $result[0];
+            if (empty($categories)) {
+                return [
+                    'template' => 'error.php',
+                    'title' => 'Error',
+                    'variables' => []
+                ];
             }
-            else { 
-                $category = false;
-            }
+        
             return [
                 'template' => 'editcategory.php',
                 'title' => 'Edit Category',
-                'variables' => ['category' => $category]
+                'variables' => [
+                    'categories' => $categories
+                ]
             ];
         }
-    }
-
-    public function add(){
-        if (isset($_POST['category'])) {
-
-	
-            $this->categoriesTable->save($_POST['category']);
+        public function editCategorySubmit() {
+            if (array_key_exists('editcategory', $_POST)) {
+                $id = $_GET['id'] ?? null;
+                $categories = [
+                    'id' => $id,
+                    'name' => $_POST['name']
+                ];
+                
+                if ($id === null) {
+                    return [
+                        'template' => 'error.php',
+                        'title' => 'Error',
+                        'variables' => []
+                    ];
+                }
+                
+                $this->categoriesTable->save($categories);
+                header('location: /category');
+            }
+        }
         
-            header('location: /category/list');
+        
+        
+
+    public function addcategory(){
+
        
             return [
                 'template' => 'addcategory.php',
                 'title' => 'Add Category',
-                'variables' => ['category' => $category]
+                'variables' => []
             ];
         }
+
+        public function addcategorysubmit() {
+            if (array_key_exists('categories', $_POST)) {
+                $categories = [
+                    'name' => $_POST['name']
+                ];
+                 $this->categoriesTable->insert($categories);
+                 header('location: /category');
+        }}
+        public function addjob() {
+
+            $categories = $this->categoriesTable->findAll();
+    
+    
+                    return [
+                        'template' => 'addjob.php',
+                        'title' => 'Add jobs',
+                        'variables' => ['categories' => $categories]
+                            
+                        
+                    ];
+                }
+    
     }
-}
+    
+    

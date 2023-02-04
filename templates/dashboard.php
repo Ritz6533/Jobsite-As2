@@ -8,8 +8,11 @@
 	<section class="left">
 
 		<ul>
-			<li><a href="jobs">Jobs</a></li>
-			<li><a href="category">Category</a></li>
+			<li><a href="joblist">Manage Jobs</a></li>
+			<li><a href="category">Manage Category</a></li>
+			<li><a href="enquiry">Manage Enquiry</a></li>
+
+			
 
 		</ul>
 	</section>

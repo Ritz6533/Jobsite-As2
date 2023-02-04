@@ -77,5 +77,27 @@ class DatabaseTable {
         $stmt->execute($values);
     }
 
-
+    public function findAllWithCategories(){
+        $stmt = $this->pdo->prepare('SELECT j.*, c.name as category_name
+                                     FROM job j
+                                     JOIN category c ON j.categoryId = c.id');
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    
+    public function findwithCategories($categoryId = null){
+        $sql = 'SELECT j.*, c.name as category_name
+                FROM job j
+                JOIN category c ON j.categoryId = c.id';
+        if ($categoryId) {
+            $sql .= ' WHERE j.categoryId = :categoryId';
+        }
+        $stmt = $this->pdo->prepare($sql);
+        if ($categoryId) {
+            $stmt->bindValue(':categoryId', $categoryId);
+        }
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    
 }

@@ -1,20 +1,26 @@
 
-	<main class="home">
-<h2>Internet job Database</h2>
+	<main class="sidebar">
 
-<p>Welcome to the Internet job Database. Here are some latest jobs in the UK</p>
+	<section class="left">
+		<ul>
+			<li><a href="/jobs">Jobs</a></li>
+			<li><a href="/category">Category</a></li>
 
+		</ul>
+	</section>
 
 <section class="right">
+	<h1><?=$jobs[0]['category_name']?></h1>
 
 
-		<ul class="listing">
+
+<ul class="listing">
 		<?php foreach($jobs as $job) { ?>
+			
 			<li>
 
 <div class="details">
 <h2><?=$job['title']?></h2>
-<h3><?=$job['category_name']?></h3>
 <h3><?=$job['salary']?></h3>
 <p><?=nl2br($job['description'])?></p>
 
@@ -27,7 +33,6 @@
 <?php }
 ?>
 
-</ul>
 
 </section>
 </main>

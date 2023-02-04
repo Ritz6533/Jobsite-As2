@@ -30,15 +30,7 @@ class Routes {
                     return $controllers['enquiries']->aboutSubmit();
                 }
                 break;
-            case 'it':
-                return $controllers['job']->it();
-                break;
-            case 'hr':
-                return $controllers['job']->hr();
-                break;
-            case 'sales':
-                return $controllers['job']->sales();
-                break;
+            
             case 'jobs':
                 return $controllers['job']->list();
                 break;
@@ -55,32 +47,63 @@ class Routes {
                 return $controllers['user']->logout();
                 break;
             case 'category':
-                return $controllers['category']->listcat();
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    return $controllers['category']->deletecategory();
+                }
+                    else  {
+                        return $controllers['category']->listcat();
+                    }
                 break;
             case 'applicants':
                 return $controllers['user']->applicantslist();
                 break;
             case 'addjob':
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    return $controllers['job']->addjobsubmit();
+                }
+                    else  {
+                        return $controllers['category']->addjob();
+                    }
                 return $controllers['job']->addjob();
                 break;
             case 'editjob':
-                return $controllers['job']->editjob();
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    return $controllers['job']->editjobsubmit();
+                }
+                    else  {
+                        return $controllers['job']->editjob();
+                    }
                 break;
-            case 'deletejob':
-                return $controllers['job']->deletejob();
+            case 'joblist':
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    return $controllers['job']->joblistsubmit();
+                }
+                    else  {
+                        return $controllers['job']->joblist();
+                    }
                 break;
             case 'apply':
                 return $controllers['job']->apply();
                 break;
             case 'editcategory':
-                return $controllers['category']->edit();
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    return $controllers['category']->editcategorysubmit();
+                }
+                    else  {
+                        return $controllers['category']->editcategory();
+                    }
                 break;
-            case 'deletecategory':
-                return $controllers['category']->delete();
-                break;
+           
+
             case 'addcategory':
-                return $controllers['category']->add();
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    return $controllers['category']->addcategorysubmit();
+                }
+                    else  {
+                        return $controllers['category']->addcategory();
+                    }
                 break;
+
             case 'register':
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     return $controllers['user']->registerSubmit();
@@ -101,6 +124,12 @@ class Routes {
                 case 'dashboard':
                     return $controllers['user']->dashboard();
                     break;
+                case 'viewjob':
+                        return $controllers['job']->viewjob();
+                        break;
+                case 'enquiry':
+                            return $controllers['enquiries']->enquiries();
+                            break;
                 
             default:
                 list($controllerName, $functionName) = explode('/', $route);
@@ -115,3 +144,6 @@ class Routes {
 }
 
 
+/*switch ($_GET['case']) {
+    case 'deletejob':
+        case 'deleteclass':*/

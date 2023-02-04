@@ -46,14 +46,10 @@ class job {
                 ];
     }
 
-    public function delete(){
-        $this->jobsTable->delete($_POST['id']);
-
-        header('location: /job/list');
-    }
 
     public function home(){
-        $jobs = $this->jobsTable->findAll();
+        $jobs = $this->jobsTable->findAllWithCategories();
+
 
         return [
             'template' => 'home.html.php',
@@ -63,40 +59,92 @@ class job {
             ]
         ];
     }
+    
    // 
-    public function addjob() {
-      
+   
+    public function addjobsubmit() {
+                if (array_key_exists('addjob', $_POST)) {
+                    $addjob = [
+                        'title' => $_POST['title'],
+                        'description' => $_POST['description'],
+                        'salary' => $_POST['salary'],
+                        'location' => $_POST['location'],
+                        'categoryId' => $_POST['categoryId'],
+                        'closingDate' => $_POST['closingDate'],
+                    ];
+                    $this->jobsTable->insert($addjob);
 
+                }
                 return [
-                    'template' => 'addjob.php',
-                    'title' => 'Add jobs',
-                    'variables' => [
-                        
-                    ]
+                    'template' => 'enquirysuccess.php',
+                    'title' => 'about',
+                    'variables' => ['addjob' => $addjob ?? []]
                 ];
             }
-    public function editjob() {
-      
 
+            public function editjob() {
+                $Id = $_GET['id'] ?? null;
+                $jobs = $this->jobsTable->find('id',$Id);
+            
+                if (empty($jobs)) {
+                    return [
+                        'template' => 'error.php',
+                        'title' => 'Error',
+                        'variables' => []
+                    ];
+                }
+            
                 return [
                     'template' => 'editjob.php',
-                    'title' => 'edit jobs',
+                    'title' => 'Edit Jobs',
                     'variables' => [
-                        
+                        'jobs' => $jobs
                     ]
                 ];
             }
-            public function deletejob() {
-      
+            public function editjobsubmit() {
+                if (array_key_exists('editjob', $_POST)) {
+                    $id = $_GET['id'] ?? null;
+                    $jobs = [
+                        'id' => $id,
+                        'title' => $_POST['title'],
+                        'description' => $_POST['description'],
+                        'salary' => $_POST['salary'],
+                        'location' => $_POST['location'],
+                        'closingDate' => $_POST['closingDate']
+                    ];
+                    
+                    if ($id === null) {
+                        return [
+                            'template' => 'error.php',
+                            'title' => 'Error',
+                            'variables' => []
+                        ];
+                    }
+                    
+                    $this->jobsTable->save($jobs);
+                    header('location: /joblist');
+                }
+            }
+            
+            public function joblist() {
+                $jobs = $this->jobsTable->findAll();
 
-                return [
-                    'template' => 'deletejob.php',
-                    'title' => 'Delete jobs',
-                    'variables' => [
+                return ['template' => 'joblist.php',
+                        'title' => 'job List',
+                        'variables' => [
+                            'jobs' => $jobs
+                        ]
+                        ];
+                    }
+                    public function joblistsubmit() {
                         
-                    ]
-                ];
-            }
+                        if (array_key_exists('delete', $_POST)) {
+                                $this->jobsTable->delete($_POST['id']);
+                        
+                                header('location: /joblist');
+                            }
+                        }
  //
  //
  //
@@ -111,29 +159,7 @@ class job {
             'title' => 'About Us'
         ];
     }
-    public function aboutsubmit() {
-        if (isset($_POST['enquiry'])) {
-
-	
-            $this->enquiryTable->save($_POST['enquiry']);
-        
-            header('location: /category/list');
-       
-            return [
-                'template' => 'about.php',
-                'title' => 'about',
-                'variables' => ['enquiry' => $enquiry]
-            ];
-        }
-        return [
-           
-            'template' => 'about.php',
-            'variables' => [
-                
-            ],
-            'title' => 'About Us'
-        ];
-    }
+    
 
     // Function to display the FAQs page.
     public function faq() {
@@ -146,36 +172,7 @@ class job {
             ]
         ];
     }
-    public function hr() {
-        return [
-           
-            'template' => 'hr.php',
-            'variables' => [
-                
-            ],
-            'title' => 'HR'
-        ];
-    }
-    public function it() {
-        return [
-           
-            'template' => 'it.php',
-            'variables' => [
-                
-            ],
-            'title' => 'IT'
-        ];
-    }
-    public function sales() {
-        return [
-           
-            'template' => 'sales.php',
-            'variables' => [
-                
-            ],
-            'title' => 'Sales'
-        ];
-    }
+    
     public function apply() {
         return [
            
@@ -186,5 +183,28 @@ class job {
             'title' => 'Apply Jobs'
         ];
     }
+    
+    public function viewjob(){
+        
+        $categoryId = $_GET['categoryId'] ?? null;
+        $jobs = $this->jobsTable->findwithCategories($categoryId);
+    
+        if (empty($jobs)) {
+            return ['template' => 'error.php',
+                    'title' => 'Error',
+                    'variables' => [
+                        
+                    ]
+            ];
+        }
+    
+        return ['template' => 'viewjob.php',
+                'title' => 'Job List',
+                'variables' => [
+                    'jobs' => $jobs
+                ]
+        ];
+    }
 
+    
 }

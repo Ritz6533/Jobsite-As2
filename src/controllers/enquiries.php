@@ -34,7 +34,17 @@ class enquiries {
             'variables' => ['enquiries' => $enquiries ?? []]
         ];
     }
-    
+    public function enquiries() {
+        $enquiries = $this->enquiriesTable->findAll();
+        return [
+           
+            'template' => 'enquiry.php',
+            'variables' => ['enquiries' => $enquiries
+                
+            ],
+            'title' => 'Enquiries'
+        ];
+    }
     
     
        

@@ -1,11 +1,11 @@
+<main class="sidebar">
+<section class="left">
+	<ul>
+		<li><a href="/jobs">Jobs</a></li>
+		<li><a href="/category">Category</a></li>
 
-	<section class="left">
-		<ul>
-			<li><a href="jobs.php">Jobs</a></li>
-			<li><a href="categories.php">Categories</a></li>
-
-		</ul>
-	</section>
+	</ul>
+</section>
 
 	<section class="right">
 
@@ -16,9 +16,10 @@
 				<input type="text" name="name" />
 
 
-				<input type="submit" name="submit" value="Add Category" />
+				<input type="submit" name="categories" value="Add Category" />
 
 			</form>
 
+</main>
 
 		
