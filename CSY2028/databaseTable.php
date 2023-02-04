@@ -102,5 +102,11 @@ class DatabaseTable {
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    
+    public function runQuery($criteria) {
+        $stmt = $this->pdo->prepare('INSERT INTO applicants (name, email, details, jobId, )
+          VALUES (:name, :email, :details, :jobId, )');
+        $stmt->execute($criteria);
+      }
+      
+      
 }

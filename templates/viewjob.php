@@ -23,7 +23,7 @@
 <h3><?=$job['salary']?></h3>
 <p><?=nl2br($job['description'])?></p>
 
-<a class="more" href="/apply?id='<?=$job['id']?> '">Apply for this job</a>
+<p><a href="/apply?id=<?=$job['id']?>">Apply for this job</a><p>
 
 </div>
 </li>

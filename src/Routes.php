@@ -8,12 +8,15 @@ class Routes {
         $categoriesTable = new \CSY2028\DatabaseTable($pdo, 'category', 'id');
         $usersTable = new \CSY2028\DatabaseTable($pdo, 'users', 'id');
         $enquiriesTable = new \CSY2028\DatabaseTable($pdo, 'enquiries', 'id');
+        $applicantsTable = new \CSY2028\DatabaseTable($pdo, 'applicants', 'id');
 
         $controllers = [];
         $controllers['job'] = new \src\Controllers\Job($jobsTable);
         $controllers['category'] = new \src\Controllers\Category($categoriesTable);
         $controllers['user'] = new \src\Controllers\Usercontroller($usersTable);
         $controllers['enquiries'] = new \src\Controllers\enquiries($enquiriesTable);
+        $controllers['applicants'] = new \src\Controllers\applicants($applicantsTable);
+
 
     
         switch ($route) {
@@ -32,7 +35,9 @@ class Routes {
                 break;
             
             case 'jobs':
-                return $controllers['job']->list();
+              
+                    return $controllers['job']->list();
+                
                 break;
             case 'login':
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -61,7 +66,13 @@ class Routes {
                 
                 break;
             case 'applicants':
-                return $controllers['user']->applicantslist();
+                if (isset($_SESSION['loggedin']) && $_SESSION['role'] === 'employee') {
+                        return $controllers['applicants']->applicantslist();
+                                           
+                } else {
+                    header("Location: /403.php");
+                    exit();
+                }
                 break;
             case 'addjob':
                 if (isset($_SESSION['loggedin'])) {
@@ -108,7 +119,11 @@ class Routes {
                 
                 break;
             case 'apply':
-                return $controllers['job']->apply();
+                if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                    return $controllers['job']->apply();}
+                else {
+                    return $controllers['applicants']->applysubmit();
+                }
                 break;
             case 'editcategory':
                 if (isset($_SESSION['loggedin']) && $_SESSION['role'] === 'employee') {

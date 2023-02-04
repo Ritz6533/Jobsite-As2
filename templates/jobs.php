@@ -3,21 +3,29 @@
 <section class="left">
   <ul>
     <li><a href="/jobs">Jobs</a></li>
-    <li><a href="/category">Category</a></li>
-    <li>
-      <form action="/jobs" method="GET">
-        <select name="location">
+    <li><a href="/categorylist">Category</a></li>
+    
+      <form action="" method="GET"">
+      <li><select name="location">
           <option value="">All Locations</option>
           <?php
-            $locations = getUniqueLocations($jobs);
-            foreach ($locations as $location) {
-              echo '<option value="' . $location . '">' . $location . '</option>';
-            }
-          ?>
-        </select>
-        <input type="submit" value="Filter">
+          //removing duplicate location values
+      $uniqueLocations = [];
+      foreach ($jobs as $job) {
+    if (!in_array($job['location'], $uniqueLocations)) {
+        echo '<option value="' . $job['location'] . '">' . $job['location'] . '</option>';
+        $uniqueLocations[] = $job['location'];
+    }
+}
+?>
+
+          
+        </select></li><br>
+
+         <li style="margin-left: -220px;"><input type="submit" value="location"></li>
       </form>
-    </li>
+   
+  
   </ul>
 </section>
 
@@ -26,10 +34,7 @@
 
   <ul class="listing">
     <?php 
-      $selectedLocation = isset($_GET['location']) ? $_GET['location'] : '';
-      $filteredJobs = filterJobsByLocation($jobs, $selectedLocation);
-      $filteredJobs = sortJobsByDate($filteredJobs);
-      foreach($filteredJobs as $job) { 
+      foreach($jobs as $job) { 
     ?>
       <li>
         <div class="details">
@@ -37,8 +42,8 @@
           <h3><?=$job['salary']?></h3>
           <p><?=nl2br($job['description'])?></p>
           <p><?=$job['location']?></p>
-          <p><?=$job['date']?></p>
-          <a class="more" href="/apply?id='<?=$job['id']?> '">Apply for this job</a>
+          <p><?=$job['closingDate']?></p>
+          <p><a href="/apply?id=<?=$job['id']?>">Apply for this job</a><p>
         </div>
       </li>
       <br>

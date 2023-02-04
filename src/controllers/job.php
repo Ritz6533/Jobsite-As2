@@ -7,16 +7,29 @@ class job {
         $this->jobsTable = $jobsTable;
     }
 
+    public function list() {
+        $location = $_GET['location'] ?? null;
+        $jobs = $this->jobsTable->find('location',$location);
     
-    public function list(){
-        $jobs = $this->jobsTable->findAll();
-
-        return ['template' => 'jobs.php',
+        if (empty($jobs)) {
+            $jobs = $this->jobsTable->findAll();
+            return [
+                'template' => 'jobs.php',
                 'title' => 'job List',
                 'variables' => [
                     'jobs' => $jobs
+
                 ]
-                ];
+            ];
+        }
+    
+        return [
+            'template' => 'jobs.php',
+            'title' => 'job List',
+            'variables' => [
+                'jobs' => $jobs
+                ]
+        ];
     }
 
 
@@ -146,14 +159,21 @@ class job {
         ];
     }
     
+    
     public function apply() {
+        $id = $_GET['id'] ?? null;
+        $jobs = $this->jobsTable->find('id',$id);
+    
+        if (empty($jobs)) {
+            header('location: /jobs');
+        }
+    
         return [
-           
             'template' => 'apply.php',
+            'title' => 'Apply Job',
             'variables' => [
-                
-            ],
-            'title' => 'Apply Jobs'
+                'jobs' => $jobs
+                ]
         ];
     }
     
