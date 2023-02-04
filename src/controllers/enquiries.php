@@ -6,7 +6,7 @@ class enquiries {
     public function __construct($enquiriesTable){
         $this->enquiriesTable = $enquiriesTable;
     }
-
+    //controller which uses enquiry table to display data or to post data 
      // Function to display the about page.
      public function about() {
         return [

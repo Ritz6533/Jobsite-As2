@@ -2,7 +2,7 @@
 namespace src\Controllers;
 class job {
     private $jobsTable;
-
+//use of job table to access of database 
     public function __construct($jobsTable){
         $this->jobsTable = $jobsTable;
     }

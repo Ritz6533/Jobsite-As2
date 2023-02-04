@@ -3,13 +3,13 @@ namespace src;
 class Routes {
     public function getPage($route) {
         require '../dbconnect.php';
-
+//defining
         $jobsTable = new \CSY2028\DatabaseTable($pdo, 'job', 'id');
         $categoriesTable = new \CSY2028\DatabaseTable($pdo, 'category', 'id');
         $usersTable = new \CSY2028\DatabaseTable($pdo, 'users', 'id');
         $enquiriesTable = new \CSY2028\DatabaseTable($pdo, 'enquiries', 'id');
         $applicantsTable = new \CSY2028\DatabaseTable($pdo, 'applicants', 'id');
-
+//adding controllers
         $controllers = [];
         $controllers['job'] = new \src\Controllers\Job($jobsTable);
         $controllers['category'] = new \src\Controllers\Category($categoriesTable);
@@ -17,7 +17,7 @@ class Routes {
         $controllers['enquiries'] = new \src\Controllers\enquiries($enquiriesTable);
         $controllers['applicants'] = new \src\Controllers\applicants($applicantsTable);
 
-
+//use of switch case to redirect route page accordingly
     
         switch ($route) {
             case '':
@@ -52,6 +52,7 @@ class Routes {
                 return $controllers['user']->logout();
                 break;
             case 'category':
+                //adding restriction i.e. loggedin true && role is employee
                 if (isset($_SESSION['loggedin']) && $_SESSION['role'] === 'employee') {
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         return $controllers['category']->deletecategory();
@@ -144,7 +145,7 @@ class Routes {
             case 'addcategory':
 
                 if (isset($_SESSION['loggedin'])) {
-                    
+                    //checking the post method to run different function
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     return $controllers['category']->addcategorysubmit();
                 }

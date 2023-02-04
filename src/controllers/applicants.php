@@ -6,7 +6,7 @@ class applicants {
     public function __construct($applicantsTable){
         $this->applicantsTable = $applicantsTable;
     }
-
+//creating function based on the table applicants where data is either get or post in the site
     public function applySubmit() {
         if (array_key_exists('applicants', $_POST)) {
           

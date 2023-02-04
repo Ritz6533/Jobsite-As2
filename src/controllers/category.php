@@ -6,7 +6,7 @@ class Category {
     public function __construct($categoriesTable){
         $this->categoriesTable = $categoriesTable;
     }
-
+//controller which uses data from the table category
     public function listcat(){
         $categories = $this->categoriesTable->findAll();
 
@@ -110,15 +110,7 @@ class Category {
                 ];
                 
     }
-    public function catlist(){
-        $categories = $this->categoriesTable->findAll();
     
-        return [
-                'variables' => ['categories' => $categories],
-            
-                ];
-    }
-
     }
     
     

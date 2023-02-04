@@ -10,7 +10,7 @@ class DatabaseTable {
         $this->table = $table;
         $this->primaryKey = $primaryKey;
     }
-
+//to find the rows where field has certain data
     public function find($field, $value){
         $stmt = $this->pdo->prepare('SELECT * FROM ' . $this->table . ' WHERE ' . $field . ' = :value');
 
@@ -102,11 +102,6 @@ class DatabaseTable {
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    public function runQuery($criteria) {
-        $stmt = $this->pdo->prepare('INSERT INTO applicants (name, email, details, jobId, )
-          VALUES (:name, :email, :details, :jobId, )');
-        $stmt->execute($criteria);
-      }
-      
+
       
 }

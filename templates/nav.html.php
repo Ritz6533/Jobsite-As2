@@ -7,8 +7,8 @@ if (isset($_SESSION['loggedin'])) {
 	<ul style="list-style-type: none; display: flex;">
 			<li><a href="/dashboard">Dashboard</a></li>
 			<li><a href="/faqs">FAQs</a></li>
-			<li>Jobs<a href="/jobs"></a>
-				<ul>
+			<li>Jobs
+				<ul><li><a href="/jobs">Joblist</a></li>
 				<?php
 				$query = $pdo->prepare('SELECT * FROM category');
 				$query->execute();
@@ -35,8 +35,8 @@ else {?>
 	<ul style="list-style-type: none; display: flex;">
 			<li><a href="/">Home</a></li>
 			<li><a href="/faqs">FAQs</a></li>
-			<li>Jobs<a href="/jobs"></a>
-				<ul>
+			<li>Jobs
+				<ul><li><a href="/jobs">Joblist</a></li>
 				<?php
 				$query = $pdo->prepare('SELECT * FROM category');
 				$query->execute();
@@ -50,6 +50,7 @@ else {?>
 
 				</li>
 				<li><a href="categorylist">Category</a></li>
+				
 				<li><a href="/about">About Us</a></li>
 	        <li><a href="/login">Login</a></li>
 			<li><a href="/register">Register</a></li>
