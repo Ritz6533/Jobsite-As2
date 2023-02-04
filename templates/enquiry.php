@@ -9,7 +9,6 @@
 	</section>
 
 
-	
 <section class="right">
 
 <h2>Enquiries</h2>

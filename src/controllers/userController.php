@@ -21,10 +21,10 @@ class UserController {
                 $_SESSION['loggedin'] = true;
                 $_SESSION['id'] = $user[0]['id'];
                 if ($user[0]['role']=='employee') {
-                    $_SESSION['employee'] = true;
+                    $_SESSION['role'] = 'employee';
                 }
                 if ($user[0]['role']=='client') {
-                    $_SESSION['client'] = true;
+                    $_SESSION['role'] = 'client';
                 }
     
                 return [
@@ -72,8 +72,7 @@ class UserController {
     public function logout() {   
         // Unset all $_SESSION variables.
         unset($_SESSION['loggedin']);
-        unset($_SESSION['employee']);
-        unset($_SESSION['client']);
+        unset($_SESSION['role']);
         unset($_SESSION['id']);
 
         return [

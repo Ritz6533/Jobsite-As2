@@ -15,7 +15,7 @@ class Routes {
         $controllers['user'] = new \src\Controllers\Usercontroller($usersTable);
         $controllers['enquiries'] = new \src\Controllers\enquiries($enquiriesTable);
 
-
+    
         switch ($route) {
             case '':
                 return $controllers['job']->home();
@@ -47,61 +47,99 @@ class Routes {
                 return $controllers['user']->logout();
                 break;
             case 'category':
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    return $controllers['category']->deletecategory();
-                }
-                    else  {
-                        return $controllers['category']->listcat();
+                if (isset($_SESSION['loggedin']) && $_SESSION['role'] === 'employee') {
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        return $controllers['category']->deletecategory();
                     }
+                        else  {
+                            return $controllers['category']->listcat();
+                        }
+                } else {
+                    header("Location: /403.php");
+                    exit();
+                }
+                
                 break;
             case 'applicants':
                 return $controllers['user']->applicantslist();
                 break;
             case 'addjob':
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    return $controllers['job']->addjobsubmit();
-                }
-                    else  {
-                        return $controllers['category']->addjob();
+                if (isset($_SESSION['loggedin'])) {
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        return $controllers['job']->addjobsubmit();
                     }
-                return $controllers['job']->addjob();
+                        else  {
+                            return $controllers['category']->addjob();
+                        }
+                    return $controllers['job']->addjob();
+                } else {
+                    header("Location: /403.php");
+                    exit();
+                }
+                
                 break;
             case 'editjob':
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    return $controllers['job']->editjobsubmit();
+                if (isset($_SESSION['loggedin']) && $_SESSION['role'] === 'employee') {
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                            return $controllers['job']->editjobsubmit();
+                        }
+                            else  {
+                                return $controllers['job']->editjob();
+                            }}
+                 }else {
+                    header("Location: /403.php");
+                    exit();
                 }
-                    else  {
-                        return $controllers['job']->editjob();
-                    }
                 break;
+
             case 'joblist':
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    return $controllers['job']->joblistsubmit();
-                }
-                    else  {
-                        return $controllers['job']->joblist();
+                if (isset($_SESSION['loggedin'])) {
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        return $controllers['job']->joblistsubmit();
                     }
+                        else  {
+                            return $controllers['job']->joblist();
+                        }
+                } else {
+                    header("Location: /403.php");
+                    exit();
+                }
+                
                 break;
             case 'apply':
                 return $controllers['job']->apply();
                 break;
             case 'editcategory':
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    return $controllers['category']->editcategorysubmit();
-                }
-                    else  {
-                        return $controllers['category']->editcategory();
+                if (isset($_SESSION['loggedin']) && $_SESSION['role'] === 'employee') {
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        return $controllers['category']->editcategorysubmit();
                     }
+                        else  {
+                            return $controllers['category']->editcategory();
+                        }
+                } else {
+                    header("Location: /403.php");
+                    exit();
+                }
+                
                 break;
            
 
             case 'addcategory':
+
+                if (isset($_SESSION['loggedin'])) {
+                    
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     return $controllers['category']->addcategorysubmit();
                 }
                     else  {
                         return $controllers['category']->addcategory();
                     }
+                } else {
+                    header("Location: /403.php");
+                    exit();
+                }
                 break;
 
             case 'register':
@@ -122,15 +160,34 @@ class Routes {
                     }
                 break;
                 case 'dashboard':
-                    return $controllers['user']->dashboard();
+                    if (isset($_SESSION['loggedin']) ) {
+                        return $controllers['user']->dashboard();
+                } else {
+                    header("Location: /403.php");
+                    exit();
+                }
+                    
                     break;
                 case 'viewjob':
                         return $controllers['job']->viewjob();
                         break;
                 case 'enquiry':
-                            return $controllers['enquiries']->enquiries();
+                    if (isset($_SESSION['loggedin']) && $_SESSION['role'] === 'employee') {
+                        return $controllers['enquiries']->enquiries();
+
+                    } else {
+                        header("Location: /403.php");
+                        exit();
+                    }
                             break;
+                case 'categorylist':
                 
+                               return $controllers['category']->categorylist();
+                                 
+                break;
+                case '403.php':
+                    return $controllers['job']->error();
+                    break;
             default:
                 list($controllerName, $functionName) = explode('/', $route);
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

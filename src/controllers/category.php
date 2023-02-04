@@ -17,6 +17,7 @@ class Category {
                 
     }
 
+
     public function deletecategory() {
                         
         if (array_key_exists('delete', $_POST)) {
@@ -100,7 +101,24 @@ class Category {
                         
                     ];
                 }
+    public function categorylist(){
+        $categories = $this->categoriesTable->findAll();
+
+        return ['template' => 'categorylist.php',
+                'title' => 'Category List',
+                'variables' => ['categories' => $categories]
+                ];
+                
+    }
+    public function catlist(){
+        $categories = $this->categoriesTable->findAll();
     
+        return [
+                'variables' => ['categories' => $categories],
+            
+                ];
+    }
+
     }
     
     

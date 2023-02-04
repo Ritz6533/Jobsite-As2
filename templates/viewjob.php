@@ -1,10 +1,9 @@
-
 	<main class="sidebar">
 
 	<section class="left">
 		<ul>
-			<li><a href="/jobs">Jobs</a></li>
-			<li><a href="/category">Category</a></li>
+		<li><a href="/jobs">Jobs</a></li>
+		<li><a href="/categorylist">Category</a></li>
 
 		</ul>
 	</section>
@@ -36,3 +35,5 @@
 
 </section>
 </main>
+
+<?php

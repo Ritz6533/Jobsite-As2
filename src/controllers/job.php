@@ -7,33 +7,6 @@ class job {
         $this->jobsTable = $jobsTable;
     }
 
-    public function edit(){
-        if (isset($_POST['job'])) {
-            $date = new \DateTime();
-
-            $job = $_POST['job'];
-            $job['jobdate'] = $date->format('Y-m-d H:i:s');
-	
-            $this->jobsTable->save($job);
-        
-            header('location: /job/list');
-        }
-        else {
-        
-            if (isset($_GET['id'])){
-                $result = $this->jobsTable->find('id', $_GET['id']);
-                $job = $result[0];
-            }
-            else { 
-                $job = false;
-            }
-            return [
-                'template' => 'editjob.html.php',
-                'title' => 'Edit job',
-                'variables' => ['job' => $job]
-            ];
-        }
-    }
     
     public function list(){
         $jobs = $this->jobsTable->findAll();
@@ -205,6 +178,14 @@ class job {
                 ]
         ];
     }
-
-    
+    public function error() {
+        return [
+           
+            'template' => '403.php',
+            'variables' => [
+                
+            ],
+            'title' => '403'
+        ];
+    }
 }

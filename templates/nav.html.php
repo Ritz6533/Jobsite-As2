@@ -1,24 +1,27 @@
 
 <?php
-
+include '../dbconnect.php'; 
 if (isset($_SESSION['loggedin'])) {
 
     ?><nav>
 	<ul style="list-style-type: none; display: flex;">
 			<li><a href="/dashboard">Dashboard</a></li>
 			<li><a href="/faqs">FAQs</a></li>
-			<li>Jobs
+			<li>Jobs<a href="/jobs"></a>
 				<ul>
-				<?php foreach($categories as $category) { ?>
+				<?php
+				$query = $pdo->prepare('SELECT * FROM category');
+				$query->execute();
+
+				foreach($query as $row){?>
+
+				<li><a href="/viewjob?categoryId=<?=$row['id']?>"><?=$row['name']?></a></li>
+				<?php } ?>
+		</ul>
 
 
-			<li><a href="/viewjob?categoryId=<?=$category['id']?>"><?=$category['name']?></a></li>
-
-<?php }
-?>
-
-				</ul></li>
-				<li><a href="category">Category</a></li>
+				</li>
+				<li><a href="categorylist">Category</a></li>
 
 				<li><a href="/about">About Us</a></li>
 	        <li><a href="logout">logout</a></li>
@@ -32,18 +35,21 @@ else {?>
 	<ul style="list-style-type: none; display: flex;">
 			<li><a href="/">Home</a></li>
 			<li><a href="/faqs">FAQs</a></li>
-			<li>Jobs
+			<li>Jobs<a href="/jobs"></a>
 				<ul>
-				<?php foreach($categories as $category) { ?>
+				<?php
+				$query = $pdo->prepare('SELECT * FROM category');
+				$query->execute();
+
+				foreach($query as $row){?>
+
+				<li><a href="/viewjob?categoryId=<?=$row['id']?>"><?=$row['name']?></a></li>
+				<?php } ?>
+		</ul>
 
 
-			<li><a href="/viewjob?categoryId=<?=$category['id']?>"><?=$category['name']?></a></li>
-
-<?php }
-?>
-
-				</ul></li>
-				<li><a href="category">Category</a></li>
+				</li>
+				<li><a href="categorylist">Category</a></li>
 				<li><a href="/about">About Us</a></li>
 	        <li><a href="/login">Login</a></li>
 			<li><a href="/register">Register</a></li>

@@ -80,10 +80,13 @@ class DatabaseTable {
     public function findAllWithCategories(){
         $stmt = $this->pdo->prepare('SELECT j.*, c.name as category_name
                                      FROM job j
-                                     JOIN category c ON j.categoryId = c.id');
+                                     JOIN category c ON j.categoryId = c.id
+                                     ORDER BY j.closingDate DESC
+                                     LIMIT 10');
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
     
     public function findwithCategories($categoryId = null){
         $sql = 'SELECT j.*, c.name as category_name

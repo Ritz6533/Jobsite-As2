@@ -1,7 +1,7 @@
 <main class="sidebar">
 <section class="left">
 	<ul>
-		<li><a href="/jobs">Jobs</a></li>
+		<li><a href="/joblist">Jobs</a></li>
 		<li><a href="/category">Category</a></li>
 
 	</ul>
