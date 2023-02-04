@@ -58,10 +58,7 @@ class UserController {
             return [
                     'title' => 'Log in',
                     'template' => 'login.php',
-                    'variables' => [
-
-                        
-                    ]
+                    'variables' =>[]
             ];
         }
         else {
@@ -91,72 +88,117 @@ class UserController {
             ]
         ];
     }
-    public function register(){
-
-        return [
-            'template' => 'register.php',
-            'title' => 'Register',
-            'variables' => [
-            ]
-        ];
-    }
+    
     public function registerSubmit(){
 
-        if (array_key_exists('users', $_POST)) {
-            $users = [
-                'role' => 'client',
-                'firstname' => $_POST['firstname'],
-                'surname' => $_POST['surname'],
-                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT), // use password_hash() function to hash the password
-                'email' => $_POST['email']
-            ];
-            $this->usersTable->insert($users);
+        $errors = [];
+        if ($_POST['firstname'] == '') {
+        $errors[] = 'You must enter a first name';
         }
-        return [
-            'template' => 'usersuccess.php',
-            'title' => 'User Added',
-            'variables' => ['users' => $users ?? []]
-        ];
-    }
-    public function employeeRegister() {
+        if ($_POST['surname'] == '') {
+        $errors[] = 'You must enter a surname';
+        }
+        if ($_POST['email'] == '') {
+        $errors[] = 'You must enter an email';
+        }
+        if ($_POST['password'] == '') {
+        $errors[] = 'You must enter a password';
+        }
+        if (count($errors) == 0) {
+            if (array_key_exists('users', $_POST)) {
+                $users = [
+                    'role' => 'client',
+                    'firstname' => $_POST['firstname'],
+                    'surname' => $_POST['surname'],
+                    'password' => password_hash($_POST['password'], PASSWORD_DEFAULT), // use password_hash() function to hash the password
+                    'email' => $_POST['email']
+                ];
+                $this->usersTable->insert($users);
+            }
+            return [
+                'template' => 'usersuccess.php',
+                'title' => 'User Added',
+                'variables' => ['users' => $users ?? []]
+            ];
+        }
+        else {
+        return $this->register($errors);
+        }
+        } 
+
+        public function register($errors = []) {
+            //If the form was submitted, show the POST values back
+            //in the inputs
+            return [
+            'template' => 'register.php',
+            'variables' => ['errors' => $errors],
+            'title' => 'Register account'
+            ];
+           }
+        
+    
+    public function employeeRegister($errors = []) {
         
 
         return [
             'template' => 'employeeRegister.php',
             'title' => 'Register Employees',
-            'variables' => [
-            ]
+            'variables' =>  ['errors' => $errors]
         ];
     }
+
 
     public function employeeRegisterSubmit(){
-
-        if (array_key_exists('users', $_POST)) {
-
-            $employeeCode = $_POST['employee_code'];
-            if ($employeeCode !== "45645") {
-                return [
-                    'template' => 'wrongcode.php',
-                    'title' => 'User Added',
-                    'variables' => []
-                ];
-            }
-
-            $users = [
-                'role' => 'employee',
-                'firstname' => $_POST['firstname'],
-                'surname' => $_POST['surname'],
-                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT), // use password_hash() function to hash the password
-                'email' => $_POST['email']
-            ];
-            $this->usersTable->insert($users);
+        $errors = [];
+        if ($_POST['firstname'] == '') {
+        $errors[] = 'You must enter a first name';
         }
-        return [
-            'template' => 'usersuccess.php',
-            'title' => 'User Added',
-            'variables' => ['users' => $users ?? []]
-        ];
-    }
+        if ($_POST['surname'] == '') {
+        $errors[] = 'You must enter a surname';
+        }
+        if ($_POST['email'] == '') {
+        $errors[] = 'You must enter an email';
+        }
+        if ($_POST['password'] == '') {
+        $errors[] = 'You must enter a password';
+        }
+        if ($_POST['employee_code'] == '') {
+            $errors[] = 'You must enter a employee code';
+            }
+        if (count($errors) == 0) {
+            if (array_key_exists('users', $_POST)) {
+
+                $employeeCode = $_POST['employee_code'];
+                if ($employeeCode !== "45645") {
+                    return [
+                        'template' => 'wrongcode.php',
+                        'title' => 'User Added',
+                        'variables' => []
+                    ];
+                }
+    
+                $users = [
+                    'role' => 'employee',
+                    'firstname' => $_POST['firstname'],
+                    'surname' => $_POST['surname'],
+                    'password' => password_hash($_POST['password'], PASSWORD_DEFAULT), // use password_hash() function to hash the password
+                    'email' => $_POST['email']
+                ];
+                $this->usersTable->insert($users);
+            }
+            return [
+                'template' => 'usersuccess.php',
+                'title' => 'User Added',
+                'variables' => ['users' => $users ?? []]
+            ];
+        }
+        else {
+        return $this->employeeRegister($errors);
+        }
+        } 
+
+       
+    
 
     public function dashboard(){
 
