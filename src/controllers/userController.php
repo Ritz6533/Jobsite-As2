@@ -196,10 +196,7 @@ class UserController {
         return $this->employeeRegister($errors);
         }
         } 
-
-       
     
-
     public function dashboard(){
 
         return [
