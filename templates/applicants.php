@@ -19,6 +19,7 @@
 						<th>Applicant ID</th>
 						<th>Name</th>
 						<th>Email</th>
+						<th>job</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -27,6 +28,7 @@
 							<td><?=$applicant['id']?></td>
 							<td><?=$applicant['name']?></td>
 							<td><?=$applicant['email']?></td>
+							<td><?=$applicant['jobname']?></td>
 							
 						</tr>
 					<?php } ?>

@@ -25,8 +25,6 @@
 				<label>Cover letter</label>
 				<textarea name="details"></textarea>
 
-				
-
 				<input type="hidden" name="jobId" value="<?=$job['id'];?>" />
 
 				<input type="submit" name="applicants" value="apply" />

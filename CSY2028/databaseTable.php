@@ -103,5 +103,12 @@ class DatabaseTable {
         return $stmt->fetchAll();
     }
 
-      
+    public function findAllWithapplicant(){
+        $stmt = $this->pdo->prepare('SELECT a.*, j.title as jobname
+                                     FROM applicants a
+                                     JOIN job j ON a.jobId = j.id
+                                    ');
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }

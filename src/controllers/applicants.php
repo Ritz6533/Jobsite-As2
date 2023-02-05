@@ -28,7 +28,7 @@ class applicants {
     }
     
     public function applicantslist() {
-        $applicants = $this->applicantsTable->findAll();
+        $applicants = $this->applicantsTable->findAllWithapplicant();
 
         return ['template' => 'applicants.php',
                 'title' => 'Applicants List',
