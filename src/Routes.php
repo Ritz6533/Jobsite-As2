@@ -92,14 +92,13 @@ class Routes {
                 break;
             case 'editjob':
                 if (isset($_SESSION['loggedin']) && $_SESSION['role'] === 'employee') {
+                    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                        return $controllers['job']->editjob();}
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             return $controllers['job']->editjobsubmit();
                         }
-                            else  {
-                                return $controllers['job']->editjob();
-                            }}
-                 }else {
+                 }
+                 else {
                     header("Location: /403.php");
                     exit();
                 }

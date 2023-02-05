@@ -32,7 +32,7 @@
 							<td>
 							<form action="/editjob?id=<?=$job['id']?>" method="GET">
 							<input type="hidden" name="id" value="<?=$job['id']?>" />
-							<input type="submit" value="Edit" />
+							<input type="submit" value="Edit" /></form>
 							</td>
 							<td>
 								<form action="" method="POST">
