@@ -135,16 +135,6 @@ class job {
  //
  //
      // Function to display the about page.
-     public function about() {
-        return [
-           
-            'template' => 'about.php',
-            'variables' => [
-                
-            ],
-            'title' => 'About Us'
-        ];
-    }
     
 
     // Function to display the FAQs page.

@@ -3,6 +3,15 @@
 		<p>We're a recruitment agency based in Northampton. We offer a range of different office jobs. Get in touch if you'd like to list a job with us.</a></p>
 
 <form action="" method="POST" >
+<?php if (count($errors) > 0) { ?>
+ <p>Your registration could not be processed:</p>
+ <ul>
+ <?php foreach ($errors as $error) { ?>
+ <li><?=$error?></li>
+ <?php } ?>
+ </ul>
+ <?php } ?>
+
 <label>Name</label> <input name="name" type="text" />
 <label>Email</label> <input name="email" type="text"/>
 <label>Phone Number</label> <input name="phoneNumber" type="text"/>
