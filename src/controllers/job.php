@@ -15,7 +15,7 @@ class job {
             $jobs = $this->jobsTable->findAll();
             return [
                 'template' => 'jobs.php',
-                'title' => 'job List',
+                'title' => 'Job List',
                 'variables' => [
                     'jobs' => $jobs
 
@@ -25,7 +25,7 @@ class job {
     
         return [
             'template' => 'jobs.php',
-            'title' => 'job List',
+            'title' => 'Job List',
             'variables' => [
                 'jobs' => $jobs
                 ]
@@ -63,7 +63,7 @@ class job {
                 }
                 return [
                     'template' => 'enquirysuccess.php',
-                    'title' => 'about',
+                    'title' => 'Success',
                     'variables' => ['addjob' => $addjob ?? []]
                 ];
             }
@@ -117,7 +117,7 @@ class job {
                 $jobs = $this->jobsTable->findAll();
 
                 return ['template' => 'joblist.php',
-                        'title' => 'job List',
+                        'title' => 'Job List',
                         'variables' => [
                             'jobs' => $jobs
                         ]
@@ -142,7 +142,7 @@ class job {
         return [
         
             'template' => 'faqs.php',
-            'title' => 'FAQSS',
+            'title' => 'FAQs',
             'variables' => [
                 
             ]

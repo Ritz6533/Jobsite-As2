@@ -172,7 +172,7 @@ class UserController {
                 if ($employeeCode !== "45645") {
                     return [
                         'template' => 'wrongcode.php',
-                        'title' => 'User Added',
+                        'title' => 'Bad Request',
                         'variables' => []
                     ];
                 }
@@ -188,7 +188,7 @@ class UserController {
             }
             return [
                 'template' => 'usersuccess.php',
-                'title' => 'User Added',
+                'title' => 'Success',
                 'variables' => ['users' => $users ?? []]
             ];
         }

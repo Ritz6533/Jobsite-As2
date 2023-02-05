@@ -43,7 +43,7 @@ class enquiries {
             }
             return [
                 'template' => 'enquirysuccess.php',
-                'title' => 'about',
+                'title' => 'About',
                 'variables' => ['enquiries' => $enquiries ?? []]
             ];
         }

@@ -22,7 +22,7 @@ class applicants {
         }
         return [
             'template' => 'enquirysuccess.php',
-            'title' => 'about',
+            'title' => 'About-Submit',
             'variables' => ['enquiries' => $enquiries ?? []]
         ];
     }
@@ -31,7 +31,7 @@ class applicants {
         $applicants = $this->applicantsTable->findAll();
 
         return ['template' => 'applicants.php',
-                'title' => 'applicants List',
+                'title' => 'Applicants List',
                 'variables' => [
                     'applicants' => $applicants
                 ]
